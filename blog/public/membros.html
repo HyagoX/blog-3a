@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Membros da Turma 3A</title>
+  <link rel="stylesheet" href="styles/membros.css">
+</head>
+<body>
+  <div class="page-container">
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Blog 3A</h1>
+      </div>
+      <div class="user-menu" id="menu-user">
+        <a href="dashboard.html" class="btn-area-logada" id="btn-area-logada" style="display:none;">Área Logada</a>
+        <a href="login.html" class="btn-login" id="btn-entrar">Entrar</a>
+      </div>
+    </nav>
+    <main class="main-content">
+      <h2>Lista de Membros</h2>
+      <div id="membros"></div>
+    </main>
+  </div>
+  <script type="module">
+    import { db, auth } from './js/auth.js';
+    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+
+    const cargosOrdem = ["dono", "admin", "moderador", "membro", "banido"];
+    const cargosLabels = {
+      dono: "Dono",
+      admin: "Admin",
+      moderador: "Moderador",
+      membro: "Membro",
+      banido: "Banido"
+    };
+
+    let cargoAtual = null;
+    let userIdAtual = null;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      userIdAtual = user.uid;
+
+      // Ajusta menu
+      document.getElementById('btn-entrar').style.display = "none";
+      document.getElementById('btn-area-logada').style.display = "inline-block";
+
+      const usersSnap = await getDocs(collection(db, "usuarios"));
+      const users = [];
+      usersSnap.forEach(d => users.push({id:d.id, ...d.data()}));
+
+      // Descobre o cargo do logado
+      const userDoc = users.find(u => u.id === user.uid);
+      cargoAtual = userDoc?.cargo || null;
+
+      // Ordena membros por cargo
+      users.sort((a, b) => {
+        const idxA = cargosOrdem.indexOf(a.cargo);
+        const idxB = cargosOrdem.indexOf(b.cargo);
+        if (idxA !== idxB) return idxA - idxB;
+        // Se mesmo cargo, ordena por nome
+        return (a.username || "").localeCompare(b.username || "");
+      });
+
+      listarMembros(users, user);
+    });
+
+    async function listarMembros(users, userLogado) {
+      const membrosDiv = document.getElementById("membros");
+      membrosDiv.innerHTML = `
+        <table class="membros-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Cargo</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id="lista-membros"></tbody>
+        </table>
+      `;
+      const lista = document.getElementById("lista-membros");
+      const cargos = ["dono", "admin", "moderador", "membro", "banido"];
+
+      users.forEach(data => {
+        const tr = document.createElement("tr");
+        tr.classList.add(`cargo-${data.cargo}`);
+        tr.innerHTML = `
+          <td>${data.username || 'Sem nome'}</td>
+          <td>${data.email || ''}</td>
+          <td><span class="cargo-label cargo-${data.cargo}">${cargosLabels[data.cargo] || data.cargo}</span></td>
+        `;
+
+        const tdAcao = document.createElement("td");
+        // Só dono pode alterar cargos e nunca o próprio
+        if (cargoAtual === "dono" && userLogado.uid !== data.id) {
+          const select = document.createElement('select');
+          select.className = "cargo-select";
+          cargos.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = cargosLabels[c];
+            if(data.cargo === c) opt.selected = true;
+            select.appendChild(opt);
+          });
+          select.onchange = async function() {
+            await updateDoc(doc(db, "usuarios", data.id), { cargo: this.value });
+            tr.querySelector('.cargo-label').textContent = cargosLabels[this.value];
+            tr.className = `cargo-${this.value}`;
+            tr.querySelector('.cargo-label').className = `cargo-label cargo-${this.value}`;
+            alert("Cargo atualizado!");
+          };
+          tdAcao.appendChild(select);
+        } else {
+          tdAcao.textContent = "-";
+        }
+        tr.appendChild(tdAcao);
+
+        lista.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>

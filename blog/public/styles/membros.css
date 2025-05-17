@@ -1,0 +1,98 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f6f7fb;
+  margin: 0;
+}
+.page-container {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  padding: 24px 32px 48px 32px;
+  border-radius: 12px;
+  box-shadow: 0 3px 16px #0002;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 24px;
+}
+.logo h1 {
+  font-size: 2rem;
+  color: #02457a;
+  margin: 0;
+}
+.user-menu {
+  display: flex;
+  gap: 14px;
+}
+.btn-login, .btn-area-logada {
+  background: #02457a;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+}
+.btn-login:hover, .btn-area-logada:hover {
+  background: #0466c8;
+}
+.main-content h2 {
+  color: #02457a;
+  margin-top: 0;
+}
+
+.membros-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  background: #fcfcff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.membros-table th, .membros-table td {
+  padding: 14px 10px;
+  border-bottom: 1px solid #eaeaea;
+  text-align: left;
+}
+.membros-table th {
+  background: #e3eafc;
+  color: #1a355e;
+}
+.membros-table tr:last-child td {
+  border-bottom: none;
+}
+.cargo-label {
+  padding: 4px 14px;
+  border-radius: 14px;
+  font-size: 0.98em;
+  font-weight: 500;
+  color: #fff;
+  display: inline-block;
+}
+.cargo-dono { background: #d7263d;}
+.cargo-admin { background: #ff9800;}
+.cargo-moderador { background: #03a9f4;}
+.cargo-membro { background: #62d26f;}
+.cargo-banido { background: #cccccc; color: #222;}
+.cargo-select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f3f6fa;
+  font-size: 1em;
+  outline: none;
+}
+.cargo-select:focus {
+  border-color: #02457a;
+}
+@media (max-width: 700px) {
+  .page-container { padding: 10px; }
+  .membros-table th, .membros-table td { padding: 9px 4px; }
+  .navbar { flex-direction: column; gap: 12px;}
+}

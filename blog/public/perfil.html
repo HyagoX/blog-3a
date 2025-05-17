@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil do Membro</title>
+  <link rel="stylesheet" href="styles/perfil.css">
+</head>
+<body>
+  <div class="page-container">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html"><h1>Blog 3A</h1></a>
+      </div>
+      <div class="user-menu" id="menu-user">
+        <a href="dashboard.html" class="btn-area-logada" id="btn-area-logada" style="display:none;">Área Logada</a>
+        <a href="login.html" class="btn-login" id="btn-entrar">Entrar</a>
+      </div>
+    </nav>
+    <main class="main-content">
+      <div class="perfil-card" id="perfilCard">
+        <img src="img/default-avatar.png" class="perfil-avatar" id="perfilFoto" alt="Foto de perfil">
+        <h2 id="perfilNome"></h2>
+        <p id="perfilCargo"></p>
+        <p id="perfilEmail"></p>
+        <p id="perfilBio"></p>
+        <div id="perfilEdit" style="display:none;">
+          <hr>
+          <h3>Editar Perfil</h3>
+          <form id="editPerfilForm">
+            <label>Nome:<br>
+              <input type="text" id="editNome">
+            </label><br>
+            <label>Biografia:<br>
+              <textarea id="editBio" rows="4"></textarea>
+            </label><br>
+            <label>Foto de Perfil (URL):<br>
+              <input type="text" id="editFoto">
+            </label><br>
+            <button type="submit">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type="module">
+    import { db, auth } from './js/auth.js';
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    let userIdPerfil = getQueryParam('uid');
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('btn-entrar').style.display = "none";
+        document.getElementById('btn-area-logada').style.display = "inline-block";
+      } else {
+        document.getElementById('btn-area-logada').style.display = "none";
+        document.getElementById('btn-entrar').style.display = "inline-block";
+      }
+    });
+
+    if (userIdPerfil) {
+      carregaPerfil(userIdPerfil);
+    } else {
+      document.getElementById('perfilCard').innerHTML = "<p>Perfil não encontrado.</p>";
+    }
+
+    async function carregaPerfil(uid) {
+      const docRef = doc(db, "usuarios", uid);
+      const snap = await getDoc(docRef);
+      if(snap.exists()) {
+        const data = snap.data();
+
+        document.getElementById('perfilNome').textContent = data.username || "Sem nome";
+        document.getElementById('perfilCargo').textContent = "Cargo: " + (data.cargo || "membro");
+        document.getElementById('perfilEmail').textContent = data.email || "";
+        document.getElementById('perfilBio').textContent = data.bio ? data.bio : "Sem biografia ainda.";
+        document.getElementById('perfilFoto').src = data.foto || "img/default-avatar.png";
+
+        // Se for o próprio usuário logado, permite editar
+        onAuthStateChanged(auth, (user) => {
+          if(user && user.uid === uid) {
+            document.getElementById('perfilEdit').style.display = "block";
+            document.getElementById('editNome').value = data.username || '';
+            document.getElementById('editBio').value = data.bio || '';
+            document.getElementById('editFoto').value = data.foto || '';
+
+            document.getElementById('editPerfilForm').onsubmit = async (e) => {
+              e.preventDefault();
+              const novoNome = document.getElementById('editNome').value.trim();
+              const novaBio = document.getElementById('editBio').value.trim();
+              const novaFoto = document.getElementById('editFoto').value.trim();
+
+              await updateDoc(docRef, {
+                username: novoNome,
+                bio: novaBio,
+                foto: novaFoto
+              });
+              alert("Perfil atualizado!");
+              carregaPerfil(uid); // recarrega perfil atualizado
+            };
+          }
+        });
+      } else {
+        document.getElementById('perfilCard').innerHTML = "<p>Perfil não encontrado.</p>";
+      }
+    }
+  </script>
+</body>
+</html>

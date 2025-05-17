@@ -1,0 +1,152 @@
+        :root {
+            --cor-destaque: #ff4757;
+            --cor-texto: #2f3542;
+            --cor-fundo: #f1f2f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--cor-fundo);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container-duplo {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .card {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            position: relative;
+        }
+        
+        .card-login {
+            border-right: 1px solid #eee;
+        }
+        
+        .card-titulo {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--cor-texto);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .card-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--cor-destaque);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a4b0be;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--cor-destaque);
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background: var(--cor-destaque);
+            color: white;
+        }
+        
+        .btn-login:hover {
+            background: #ff6b81;
+        }
+        
+        .btn-registro {
+            background: white;
+            color: var(--cor-destaque);
+            border: 2px solid var(--cor-destaque);
+        }
+        
+        .btn-registro:hover {
+            background: #ff4757;
+            color: white;
+        }
+        
+        .divisor {
+            text-align: center;
+            margin: 20px 0;
+            color: #a4b0be;
+            position: relative;
+        }
+        
+        .divisor::before, .divisor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .divisor::before {
+            left: 0;
+        }
+        
+        .divisor::after {
+            right: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container-duplo {
+                flex-direction: column;
+            }
+            
+            .card-login {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+        }

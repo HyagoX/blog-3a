@@ -1,0 +1,103 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f6f7fb;
+  margin: 0;
+}
+.page-container {
+  max-width: 500px;
+  margin: 32px auto;
+  background: #fff;
+  padding: 24px 32px 48px 32px;
+  border-radius: 12px;
+  box-shadow: 0 3px 16px #0002;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 24px;
+}
+.logo h1 {
+  font-size: 2rem;
+  color: #02457a;
+  margin: 0;
+}
+.user-menu {
+  display: flex;
+  gap: 14px;
+}
+.btn-login, .btn-area-logada {
+  background: #02457a;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+}
+.btn-login:hover, .btn-area-logada:hover {
+  background: #0466c8;
+}
+.perfil-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fcfcff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 32px 24px;
+  margin-top: 24px;
+}
+.perfil-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border: 3px solid #e4eafc;
+}
+.perfil-card h2 {
+  margin: 6px 0 4px 0;
+  color: #02457a;
+}
+.perfil-card p {
+  margin: 4px 0;
+  font-size: 1.08em;
+}
+#perfilEdit {
+  margin-top: 24px;
+  width: 100%;
+}
+#perfilEdit label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+#perfilEdit input[type="text"], #perfilEdit textarea {
+  width: 100%;
+  padding: 7px 10px;
+  margin-top: 3px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+#perfilEdit button {
+  margin-top: 10px;
+  padding: 7px 18px;
+  background: #02457a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+}
+#perfilEdit button:hover {
+  background: #0466c8;
+}
+@media (max-width: 700px) {
+  .page-container { padding: 10px; }
+}

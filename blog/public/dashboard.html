@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Logada - Blog 3A</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Blog 3A</h1>
+            </div>
+            <div class="user-menu">
+                <a href="perfil.html" id="meuPerfilBtn" style="display:none;">Meu Perfil</a>
+                <a href="membros.html" class="btn-login">Membros</a>
+                <span id="username-display"></span>
+                <button id="btnLogout" class="btn-logout">Sair</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="post-form">
+                <h2>Compartilhe algo com a turma</h2>
+                <textarea id="postContent" placeholder="O que você está pensando?"></textarea>
+                <button id="btnPost" class="btn-primario">Publicar</button>
+            </div>
+
+            <div class="posts-container">
+                <h2>Mural da Turma</h2>
+                <div id="postsList" class="posts-list">
+                    <!-- Posts serão carregados aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js" type="module"></script>
+</body>
+</html>

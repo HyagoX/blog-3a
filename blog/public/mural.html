@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Blog da Turma 3A</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Barra de navegação -->
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Blog 3A</h1>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <span id="username-display"></span>
+                    <img id="user-avatar" src="img/default-avatar.png" alt="Avatar">
+                </div>
+                <button id="btnLogout" class="btn-logout">Sair</button>
+            </div>
+        </nav>
+
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <div class="post-form">
+                <h2>Compartilhe algo com a turma</h2>
+                <textarea id="postContent" placeholder="O que você está pensando?"></textarea>
+                <div class="post-actions">
+                    <button id="btnPost" class="btn-primario">Publicar</button>
+                </div>
+            </div>
+
+            <div class="posts-container">
+                <h2>Publicações recentes</h2>
+                <div id="postsList" class="posts-list">
+                    <!-- Posts serão carregados aqui dinamicamente -->
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Turma 3A © <span id="ano-atual"></span></p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/dashboard.js" type="module"></script>
+    <script>
+        document.getElementById('ano-atual').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

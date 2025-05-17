@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural da Turma 3A</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Blog 3A</h1>
+            </div>
+            <div class="user-menu" id="menu-user">
+                <a href="membros.html" class="btn-login">Membros</a>
+                <a href="login.html" class="btn-login" id="btn-entrar">Entrar</a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="posts-container">
+                <h2>Mural da Turma</h2>
+                <div id="postsList" class="posts-list">
+                    <!-- Posts carregados do Firestore -->
+                </div>
+                <div class="login-prompt" id="login-prompt">
+                    <p>Faça <a href="login.html">login</a> para participar!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="js/index.js"></script>
+</body>
+</html>

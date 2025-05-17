@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog 3A - Acesso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header></header>
+    <div class="container-duplo">
+        <!-- Card de Login -->
+        <div class="card card-login">
+            <h2 class="card-titulo">Login</h2>
+            <form id="formLogin">
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Email escolar" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginSenha" name="loginSenha" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn btn-login">Entrar</button>
+            </form>
+        </div>
+        
+        <!-- Card de Registro -->
+        <div class="card card-registro" style="display:none;">
+            <h2 class="card-titulo">Registrar</h2>
+            <form id="formRegistro">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regUsername" name="regUsername" placeholder="Nome de usuário" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="regEmail" name="regEmail" placeholder="Email escolar" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regSenha" name="regSenha" placeholder="Senha" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regSenha2" name="regSenha2" placeholder="Confirmar senha" required>
+                </div>
+                <button type="submit" class="btn btn-login">Criar conta</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <a href="#" id="toggleRegistro">Não tem conta? Registre-se</a>
+        <span>•</span>
+        <a href="#" id="toggleLogin">Já tem conta? Faça login</a>
+    </footer>
+    <script type="module">
+        import './js/login.js';
+        import './js/criarUsuario.js';
+        // Alternar entre login e registro
+        document.getElementById('toggleRegistro').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('.card-login').style.display = 'none';
+            document.querySelector('.card-registro').style.display = 'block';
+        });
+        document.getElementById('toggleLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('.card-login').style.display = 'block';
+            document.querySelector('.card-registro').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
